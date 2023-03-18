@@ -1,2 +1,2 @@
-# computer-vision-exercises
+# Computer Vision Exercises
 Pytorch and OpenCV exercises 
