@@ -1,0 +1,12 @@
+class nn.Module
+it has to implement 2 mandatory functions: CONSTRUCTOR (__init__) and FORWARD.
+
+class Model(nn.Module):
+	def __init__(self):
+		....
+	
+	def forward(self, x):
+		...
+
+net = Model()
+out = net(x)
