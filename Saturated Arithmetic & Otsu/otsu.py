@@ -13,23 +13,27 @@ im = torch.from_numpy(im)
 # iterate thresholds and compute variance_b[t]
 # the correct threshold is the one corresponding to higher variance_b
 
-hist = torch.zeros([255])
-var_b = torch.zeros([255])
+hist = torch.zeros([256])
+indexes = torch.zeros([256])
+var_b = torch.zeros([256])
 
-for i in range(255):
+for i in range(256):
     hist[i] = torch.sum(im == i)
-    
+    indexes[i] = i
+
 #plt.bar(np.arange(0,255, 1, dtype=int), hist)
 #plt.show()
     
-for i in range(254):
-    wb = torch.sum(hist[:i+1]) / torch.numel(hist)
-    wf = torch.sum(hist[i+1:]) / torch.numel(hist)
+for i in range(256):
+    wb = torch.sum(hist[:i+1] / torch.sum(hist))
+    wf = torch.sum(hist[i+1:] / torch.sum(hist))
     
-    ub = torch.sum(hist[:i+1] * i)/ torch.numel(hist[:i+1])
-    uf = torch.sum(hist[i+1:] * i)/ torch.numel(hist[i+1:])
+    ub = torch.sum(hist[:i+1] * indexes[:i+1])/ torch.sum(hist[:i+1])
+    uf = torch.sum(hist[i+1:] * indexes[i+1:])/ torch.sum(hist[i+1:])
     
     var_b[i] = wb*wf*((ub -uf)**2)
+
+var_b[torch.isnan(var_b)] = 0
     
 thresh = int(torch.argmax(var_b)) 
 
