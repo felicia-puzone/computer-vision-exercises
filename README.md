@@ -1,5 +1,7 @@
 # Computer Vision Exercises
-Pytorch and OpenCV exercises 
+Pytorch and OpenCV exercises
+Computer Vision and Cognitive Systems
+2022/2023 class
 
  ### Saturated arithmetic, Thresholds
 
